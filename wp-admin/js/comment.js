@@ -3,15 +3,16 @@ jQuery(document).ready( function($) {
 	postboxes.add_postbox_toggles('comment');
 
 	var stamp = $('#timestamp').html();
-	$('.edit-timestamp').click(function () {
+	$('.edit-timestamp').click(function (e) {
+		e.preventDefault();
 		if ($('#timestampdiv').is(":hidden")) {
 			$('#timestampdiv').slideDown("normal");
 			$('.edit-timestamp').hide();
 		}
-		return false;
 	});
 
-	$('.cancel-timestamp').click(function() {
+	$('.cancel-timestamp').click(function(e) {
+		e.preventDefault();
 		$('#timestampdiv').slideUp("normal");
 		$('#mm').val($('#hidden_mm').val());
 		$('#jj').val($('#hidden_jj').val());
@@ -20,16 +21,16 @@ jQuery(document).ready( function($) {
 		$('#mn').val($('#hidden_mn').val());
 		$('#timestamp').html(stamp);
 		$('.edit-timestamp').show();
-		return false;
 	});
 
-	$('.save-timestamp').click(function () { // crazyhorse - multiple ok cancels
+	$('.save-timestamp').click(function (e) { // crazyhorse - multiple ok cancels
+		e.preventDefault();
 		var aa = $('#aa').val(), mm = $('#mm').val(), jj = $('#jj').val(), hh = $('#hh').val(), mn = $('#mn').val(),
 			newD = new Date( aa, mm - 1, jj, hh, mn );
 
 		if ( newD.getFullYear() != aa || (1 + newD.getMonth()) != mm || newD.getDate() != jj || newD.getMinutes() != mn ) {
 			$('.timestamp-wrap', '#timestampdiv').addClass('form-invalid');
-			return false;
+			return;
 		} else {
 			$('.timestamp-wrap', '#timestampdiv').removeClass('form-invalid');
 		}
@@ -44,6 +45,5 @@ jQuery(document).ready( function($) {
 			hh + ':' +
 			mn + '</b> '
 		);
-		return false;
 	});
 });

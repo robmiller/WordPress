@@ -64,11 +64,11 @@ var ThemeViewer;
 	ThemeViewer = function( args ) {
 
 		function init() {
-			$( '#filter-click, #mini-filter-click' ).unbind( 'click' ).click( function() {
+			$( '#filter-click, #mini-filter-click' ).unbind( 'click' ).click( function(e) {
+				e.preventDefault();
 				$( '#filter-click' ).toggleClass( 'current' );
 				$( '#filter-box' ).slideToggle();
 				$( '#current-theme' ).slideToggle( 300 );
-				return false;
 			});
 
 			$( '#filter-box :checkbox' ).unbind( 'click' ).click( function() {

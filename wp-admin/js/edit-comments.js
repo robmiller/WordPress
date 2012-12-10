@@ -76,13 +76,13 @@ setCommentsList = function() {
 			a.attr('class', 'vim-z vim-destructive');
 			$('.avatar', el).clone().prependTo('#undo-' + id + ' .' + action + '-undo-inside');
 
-			a.click(function(){
+			a.click(function(e){
+				e.preventDefault();
 				list.wpList.del(this);
 				$('#undo-' + id).css( {backgroundColor:'#ceb'} ).fadeOut(350, function(){
 					$(this).remove();
 					$('#comment-' + id).css('backgroundColor', '').fadeIn(300, function(){ $(this).show() });
 				});
-				return false;
 			});
 		}
 
@@ -560,7 +560,7 @@ $(document).ready(function(){
 
 	setCommentsList();
 	commentReply.init();
-	$(document).delegate('span.delete a.delete', 'click', function(){return false;});
+	$(document).delegate('span.delete a.delete', 'click', function(e) { e.preventDefault(); });
 
 	if ( typeof $.table_hotkeys != 'undefined' ) {
 		make_hotkeys_redirect = function(which) {

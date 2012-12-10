@@ -31,9 +31,9 @@ var postboxes;
 			});
 
 			$('.postbox a.dismiss').bind('click.postboxes', function(e) {
+				e.preventDefault();
 				var hide_id = $(this).parents('.postbox').attr('id') + '-hide';
 				$( '#' + hide_id ).prop('checked', false).triggerHandler('click');
-				return false;
 			});
 
 			$('.hide-postbox-tog').bind('click.postboxes', function() {

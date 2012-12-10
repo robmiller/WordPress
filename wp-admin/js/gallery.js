@@ -34,22 +34,22 @@ jQuery(document).ready(function($) {
 		});
 	}
 
-	$('#asc').click(function(){desc = false; sortIt(); return false;});
-	$('#desc').click(function(){desc = true; sortIt(); return false;});
-	$('#clear').click(function(){clearAll(1); return false;});
-	$('#showall').click(function(){
+	$('#asc').click(function(e){desc = false; sortIt(); e.preventDefault();});
+	$('#desc').click(function(e){desc = true; sortIt(); e.preventDefault();});
+	$('#clear').click(function(e){clearAll(1); e.preventDefault();});
+	$('#showall').click(function(e){
+		e.preventDefault();
 		$('#sort-buttons span a').toggle();
 		$('a.describe-toggle-on').hide();
 		$('a.describe-toggle-off, table.slidetoggle').show();
 		$('img.pinkynail').toggle(false);
-		return false;
 	});
-	$('#hideall').click(function(){
+	$('#hideall').click(function(e){
+		e.preventDefault();
 		$('#sort-buttons span a').toggle();
 		$('a.describe-toggle-on').show();
 		$('a.describe-toggle-off, table.slidetoggle').hide();
 		$('img.pinkynail').toggle(true);
-		return false;
 	});
 
 	// initialize sortable

@@ -27,16 +27,17 @@ jQuery(document).ready(function($) {
 
 	$(window).resize(function(){ tb_position(); });
 
-	 $('#dashboard_plugins a.thickbox, .plugins a.thickbox').click( function() {
+	 $('#dashboard_plugins a.thickbox, .plugins a.thickbox').click( function(e) {
+		e.preventDefault();
 		tb_click.call(this);
 
 		$('#TB_title').css({'background-color':'#222','color':'#cfcfcf'});
 		$('#TB_ajaxWindowTitle').html('<strong>' + plugininstallL10n.plugin_information + '</strong>&nbsp;' + $(this).attr('title') );
-		return false;
 	});
 
 	/* Plugin install related JS*/
-	$('#plugin-information #sidemenu a').click( function() {
+	$('#plugin-information #sidemenu a').click( function(e) {
+		e.preventDefault();
 		var tab = $(this).attr('name');
 		//Flip the tab
 		$('#plugin-information-header a.current').removeClass('current');
@@ -44,7 +45,6 @@ jQuery(document).ready(function($) {
 		//Flip the content.
 		$('#section-holder div.section').hide(); //Hide 'em all
 		$('#section-' + tab).show();
-		return false;
 	});
 
 	$('a.install-now').click( function() {

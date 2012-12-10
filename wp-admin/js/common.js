@@ -327,10 +327,10 @@ $(document).ready( function() {
 		});
 	});
 
-	$('#default-password-nag-no').click( function() {
+	$('#default-password-nag-no').click( function(e) {
+		e.preventDefault();
 		setUserSetting('default_password_nag', 'hide');
 		$('div.default-password-nag').hide();
-		return false;
 	});
 
 	// tab in textareas

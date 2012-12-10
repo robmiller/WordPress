@@ -42,9 +42,9 @@ inlineEditPost = {
 		});
 
 		// add events
-		$('a.editinline').live('click', function(){
+		$('a.editinline').live('click', function(e){
+			e.preventDefault();
 			inlineEditPost.edit(this);
-			return false;
 		});
 
 		$('#bulk-title-div').parents('fieldset').after(

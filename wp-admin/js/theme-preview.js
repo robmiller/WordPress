@@ -20,7 +20,8 @@ jQuery(document).ready(function($) {
 	thickDims();
 	$(window).resize( function() { thickDims() } );
 
-	$('a.thickbox-preview').click( function() {
+	$('a.thickbox-preview').click( function(e) {
+		e.preventDefault();
 		tb_click.call(this);
 
 		var alink = $(this).parents('.available-theme').find('.activatelink'), link = '', href = $(this).attr('href'), url, text;
@@ -50,7 +51,5 @@ jQuery(document).ready(function($) {
 
 		$('#TB_iframeContent').width('100%');
 		thickDims();
-
-		return false;
 	} );
 });

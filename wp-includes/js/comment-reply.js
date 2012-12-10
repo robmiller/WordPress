@@ -22,7 +22,8 @@ addComment = {
 		parent.value = parentId;
 		cancel.style.display = '';
 
-		cancel.onclick = function() {
+		cancel.onclick = function(e) {
+			e.preventDefault();
 			var t = addComment, temp = t.I('wp-temp-form-div'), respond = t.I(t.respondId);
 
 			if ( ! temp || ! respond )
@@ -33,7 +34,6 @@ addComment = {
 			temp.parentNode.removeChild(temp);
 			this.style.display = 'none';
 			this.onclick = null;
-			return false;
 		}
 
 		try { t.I('comment').focus(); }

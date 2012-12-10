@@ -7,7 +7,8 @@ jQuery(document).ready( function($) {
 	postboxes.add_postbox_toggles('link');
 
 	// category tabs
-	$('#category-tabs a').click(function(){
+	$('#category-tabs a').click(function(e){
+		e.preventDefault();
 		var t = $(this).attr('href');
 		$(this).parent().addClass('tabs').siblings('li').removeClass('tabs');
 		$('.tabs-panel').hide();
@@ -16,7 +17,6 @@ jQuery(document).ready( function($) {
 			deleteUserSetting('cats');
 		else
 			setUserSetting('cats','pop');
-		return false;
 	});
 	if ( getUserSetting('cats') )
 		$('#category-tabs a[href="#categories-pop"]').click();
@@ -56,11 +56,11 @@ jQuery(document).ready( function($) {
 	if ( 'pop' == getUserSetting('cats') )
 		$('a[href="#categories-pop"]').click();
 
-	$('#category-add-toggle').click( function() {
+	$('#category-add-toggle').click( function(e) {
+		e.preventDefault();
 		$(this).parents('div:first').toggleClass( 'wp-hidden-children' );
 		$('#category-tabs a[href="#categories-all"]').click();
 		$('#newcategory').focus();
-		return false;
 	} );
 
 	$('.categorychecklist :checkbox').change( syncChecks ).filter( ':checked' ).change();
