@@ -1661,6 +1661,10 @@ class WP_Query {
 				$qv['post_status'] = preg_replace('|[^a-z0-9_,-]|', '', $qv['post_status']);
 		}
 
+		if ( isset( $qv['has_password'] ) ) {
+			$qv['has_password'] = $qv['has_password'] ? true : false;
+		}
+
 		if ( $this->is_posts_page && ( ! isset($qv['withcomments']) || ! $qv['withcomments'] ) )
 			$this->is_comment_feed = false;
 
@@ -2509,6 +2513,14 @@ class WP_Query {
 			}
 
 			$where .= ')';
+		}
+
+		if ( isset($q['has_password']) ) {
+			if ( $q['has_password'] ) {
+				$where .= " AND $wpdb->posts.post_password != ''";
+			} else {
+				$where .= " AND $wpdb->posts.post_password = ''";
+			}
 		}
 
 		if ( !empty( $this->meta_query->queries ) ) {
