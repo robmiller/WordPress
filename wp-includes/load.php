@@ -592,6 +592,17 @@ function is_admin() {
 }
 
 /**
+ * Whether the current request is for the login or register pages
+ *
+ * @since 3.6
+ *
+ * return bool True if on the login/register page
+ */
+function is_login() {
+	return !empty($GLOBALS['pagenow']) && in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'));
+}
+
+/**
  * Whether the current request is for a blog admin screen /wp-admin/
  *
  * Does not inform on whether the user is a blog admin! Use capability checks to
