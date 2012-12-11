@@ -795,7 +795,8 @@ class WP_Meta_Query {
 					continue;
 				}
 			} else {
-				$meta_value = trim( $meta_value );
+				if ( ! is_array( $meta_value ) )
+					$meta_value = trim( $meta_value );
 			}
 
 			if ( 'IN' == substr( $meta_compare, -2) ) {
@@ -804,7 +805,8 @@ class WP_Meta_Query {
 				$meta_value = array_slice( $meta_value, 0, 2 );
 				$meta_compare_string = '%s AND %s';
 			} elseif ( 'LIKE' == substr( $meta_compare, -4 ) ) {
-				$meta_value = '%' . like_escape( $meta_value ) . '%';
+				if ( ! is_array( $meta_value ) )
+					$meta_value = '%' . like_escape( $meta_value ) . '%';
 				$meta_compare_string = '%s';
 			} else {
 				$meta_compare_string = '%s';
@@ -813,7 +815,16 @@ class WP_Meta_Query {
 			if ( ! empty( $where[$k] ) )
 				$where[$k] .= ' AND ';
 
-			$where[$k] = ' (' . $where[$k] . $wpdb->prepare( "CAST($alias.meta_value AS {$meta_type}) {$meta_compare} {$meta_compare_string})", $meta_value );
+			if ( 'LIKE' == substr( $meta_compare, -4 ) && is_array($meta_value) ) {
+				$like_where = '';
+				foreach ( (array) $meta_value as $_meta_value ) {
+					$_meta_value = '%' . like_escape( $_meta_value ) . '%';
+					$like_where .= ' OR (' . $wpdb->prepare( "CAST($alias.meta_value AS {$meta_type}) {$meta_compare} {$meta_compare_string})", $_meta_value );
+				}
+				$where[$k] = substr( $like_where, 4 );
+			} else {
+				$where[$k] = ' (' . $where[$k] . $wpdb->prepare( "CAST($alias.meta_value AS {$meta_type}) {$meta_compare} {$meta_compare_string})", $meta_value );
+			}
 		}
 
 		$where = array_filter( $where );
