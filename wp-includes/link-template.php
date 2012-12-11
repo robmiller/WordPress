@@ -2139,8 +2139,10 @@ function network_home_url( $path = '', $scheme = null ) {
 
 	$orig_scheme = $scheme;
 
+	$is_login = !empty($GLOBALS['pagenow']) && in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'));
+
 	if ( ! in_array( $scheme, array( 'http', 'https', 'relative' ) ) )
-		$scheme = is_ssl() && ! is_admin() ? 'https' : 'http';
+		$scheme = is_ssl() && ! is_admin() && ! $is_login ? 'https' : 'http';
 
 	if ( 'relative' == $scheme )
 		$url = $current_site->path;
